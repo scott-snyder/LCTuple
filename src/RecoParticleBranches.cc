@@ -136,8 +136,8 @@ void RecoParticleBranches::fill(const EVENT::LCCollection* col, EVENT::LCEvent* 
     _rcene[ i ] = rec->getEnergy() ;
     _rccha[ i ] = rec->getCharge() ;
 
-    _rcvts[ i ] = ( rec->getStartVertex() ?  rec->getStartVertex()->ext<CollIndex>() - 1  :  -1 )   ; 
-    _rcvte[ i ] = ( rec->getEndVertex() ?  rec->getEndVertex()->ext<CollIndex>() - 1  :  -1 )   ; 
+    _rcvts[ i ] = ( rec->getStartVertex() ?  rec->getStartVertex()->ext<CollIndex>() - 1  :  -1 )   ;
+    _rcvte[ i ] = ( rec->isCompound() && rec->getParticles().at(0) && rec->getEndVertex() ?  rec->getEndVertex()->ext<CollIndex>() - 1  :  -1 )   ; 
     _rccom[ i ] = rec->isCompound();
 
     _rcntr[ i ] = rec->getTracks().size() ; 
