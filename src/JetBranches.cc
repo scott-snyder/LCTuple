@@ -192,12 +192,20 @@ void JetBranches::fill(const EVENT::LCCollection* col, EVENT::LCEvent* evt )
    // Write flavor tagginf parameters if it is enabled in the steering file
    if(_writeTaggingParameters) { 
 	  pid = new PIDHandler(col) ;
-	  algo = pid->getAlgorithmID("lcfiplus");
-	  ibtag  = pid->getParameterIndex (algo, "BTag") ;
-	  ictag  = pid->getParameterIndex (algo, "CTag") ;
-	  iotag  = pid->getParameterIndex (algo, "OTag") ;
-
-	  ibcat  = pid->getParameterIndex (algo, "Category") ;
+          try {
+            algo = pid->getAlgorithmID("lcfiplus");
+            ibtag  = pid->getParameterIndex (algo, "BTag") ;
+            ictag  = pid->getParameterIndex (algo, "CTag") ;
+            iotag  = pid->getParameterIndex (algo, "OTag") ;
+            ibcat  = pid->getParameterIndex (algo, "Category") ;
+          }
+          catch (const UTIL::UnknownAlgorithm&) {
+            algo = -1;
+            ibtag = -1;
+            ictag = -1;
+            iotag = -1;
+            ibcat = -1;
+          }
 
    } // end if
 
@@ -250,14 +258,23 @@ void JetBranches::fill(const EVENT::LCCollection* col, EVENT::LCEvent* evt )
 
 	  // write tagginf parameters if it is enabled
 	  if(_writeTaggingParameters) {
+            _btag[i] = -1;
+            _ctag[i] = -1;
+            _otag[i] = -1;
+            _bctag[i] = -1;
+            _bcat[i] = -1;
+            if (algo != -1) {
 		 std::vector< float > pidvec = pid->getParticleID (jet, algo).getParameters() ;
 
-		 _btag[ i ] = pidvec[ibtag] ;
-		 _ctag[ i ] = pidvec[ictag] ;
-		 _otag[ i ] = pidvec[iotag] ;
-
-		 _bctag[ i ] = _ctag[ i ] / ( _ctag[ i ] + _btag[ i ] );
-		 _bcat[ i ]  = pidvec[ ibcat ] ;
+                 if (!pidvec.empty()) {
+                   _btag[ i ] = pidvec[ibtag] ;
+                   _ctag[ i ] = pidvec[ictag] ;
+                   _otag[ i ] = pidvec[iotag] ;
+                   
+                   _bctag[ i ] = _ctag[ i ] / ( _ctag[ i ] + _btag[ i ] );
+                   _bcat[ i ]  = pidvec[ ibcat ] ;
+                 }
+            }
 
      auto particles = jet->getParticles();
 
@@ -267,7 +284,7 @@ void JetBranches::fill(const EVENT::LCCollection* col, EVENT::LCEvent* evt )
      memset( &_jetpfoori[ i ][0], -1, LCT_JET_PARTICLES_MAX ); // init indices
      
      for( int partid = 0 ; partid < nparticles ; ++partid ) {
-       _jetpfoori[ i ][ partid ] = particles[partid]->ext<CollIndex>() ;
+       _jetpfoori[ i ][ partid ] = particles[partid] ? particles[partid]->ext<CollIndex>() : -1 ;
      }
 	  } // end if
 
