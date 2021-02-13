@@ -54,8 +54,9 @@ void JetBranches::initBranches( TTree* tree, const std::string& pre){
 
    if (_writeparameters) CollectionBranches::initBranches(tree, (pre+"j").c_str());
 
-   tree->Branch( (pre+"nj").c_str() , &_nj ,  (pre+"njet/I").c_str() ) ;
+   tree->Branch( (pre+"njet").c_str() , &_nj ,  (pre+"njet/I").c_str() ) ;
 
+   tree->Branch( (pre+"jori").c_str() , _jori , (pre+"jori["+pre+"njet]/I").c_str() ) ;
 
    // ------------ Default Jet parameters ------------------//
    tree->Branch( (pre+"jmox").c_str() , _jmox , (pre+"jmox["+pre+"njet]/F").c_str() ) ;
@@ -147,6 +148,7 @@ void JetBranches::fill(const EVENT::LCCollection* col, EVENT::LCEvent* evt )
    ibcat = 0;
   
    for ( size_t i = 0; i < LCT_JET_MAX ; ++i ) {
+          _jori[ i ] = 0;
 	  _jmox[ i ] = 0;
 	  _jmoy[ i ] = 0;
 	  _jmoz[ i ] = 0;
@@ -237,6 +239,8 @@ void JetBranches::fill(const EVENT::LCCollection* col, EVENT::LCEvent* evt )
    for(size_t i=0 ; i < _nj ; ++i) {
 
 	  lcio::ReconstructedParticle* jet = static_cast<lcio::ReconstructedParticle*>( col->getElementAt(i) ) ;
+
+          _jori[ i ] = jet->ext<CollID>();
 
 	  // Write default jet parameters
 	  _jmox[ i ] = jet->getMomentum()[0];
