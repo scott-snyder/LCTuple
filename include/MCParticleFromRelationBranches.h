@@ -26,7 +26,8 @@ public:
   MCParticleFromRelationBranches() {} ;
   
   virtual void initBranches( TTree* tree, const std::string& prefix="" ) ; //const char*  prefix=0) ;
-  
+
+  using CollectionBranches::fill;
   virtual void fill(const EVENT::LCCollection* colRel, const EVENT::LCCollection* col, EVENT::LCEvent* evt ) ;
   
   virtual ~MCParticleFromRelationBranches() {} ;
