@@ -40,9 +40,7 @@ public:
 	
 private:
 	int   _niso {} ;
-	int   npid {} ;
 	
-	int   isonpi[ LCT_ISOLEP_MAX ] {} ;
     int   isotyp[ LCT_ISOLEP_MAX ] {} ;
 	float isomox[ LCT_ISOLEP_MAX ] {} ;
 	float isomoy[ LCT_ISOLEP_MAX ] {} ;
@@ -51,7 +49,6 @@ private:
 	float isocha[ LCT_ISOLEP_MAX ] {} ;
 	float isoncl[ LCT_ISOLEP_MAX ] {} ;
 	int   isoori[ LCT_ISOLEP_MAX ] {} ;
-	int   pipdg [ LCT_PARTICLEID_MAX ] {} ;
 
 	float _IsoEmiss {} ;
 	float _IsoMass {} ;
