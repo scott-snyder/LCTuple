@@ -1,3 +1,11 @@
+# v01-14-01
+
+* 2026-05-10 jmcarcell ([PR#14](https://github.com/iLCSoft/LCTuple/pull/14))
+  - Find LCIO and substitute Marlin_LIBRARIES for the corresponding libs
+
+* 2026-04-30 Juan Miguel Carceller ([PR#15](https://github.com/iLCSoft/LCTuple/pull/15))
+  - Update the minimum CMake version to 3.10 to allow building with CMake 4
+
 # v01-14
 
 * 2022-06-29 Kollassery Swathi Sasikumar ([PR#10](https://github.com/iLCSoft/LCTuple/pull/10))
