@@ -8,6 +8,9 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.10 FATAL_ERROR)
 # project name
 PROJECT( LCTuple )
 
+cmake_policy(SET CMP0074 NEW)
+
+
 
 # project version
 SET( ${PROJECT_NAME}_VERSION_MAJOR 1 )
