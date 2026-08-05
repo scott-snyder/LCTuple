@@ -1,6 +1,6 @@
-Bottom: 8df1e5fa6c29990426e8677f8d56b1d28c85039b
-Top:    85c50c57f6964972726762740fb5bf50c2167231
+Bottom: 7f5baf0721297cf756d00a7d27aaa775499bfa76
+Top:    cd0fbdee4760bba5e31e41ebb000b83923c0f016
 Author: scott snyder <sss@karma>
-Date:   2021-01-15 15:23:20 -0500
+Date:   2026-08-05 15:48:07 -0400
 
 Protect against null pointer deref / out-of-bounts array access.
